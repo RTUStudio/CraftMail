@@ -1,0 +1,26 @@
+title: "<gold>메일함</gold>"
+unread: "<white>읽지 않은 메일이 있습니다</white>"
+reward:
+  remain: "<white>보상을 전부 수령하지 못했습니다</white>"
+  complete: "<white>보상을 모두 받았습니다</white>"
+icon:
+  mail:
+    reward: "보상 받기"
+    read: "읽기"
+    remove: "제거"
+    click: "클릭: "
+  menu:
+    refresh: ""
+    pagination:
+      first:
+        available: "<white>처음 페이지</white>"
+        unavailable: "<gray>처음 페이지</gray>"
+      last:
+        available: "<white>마지막 페이지</white>"
+        unavailable: "<gray>마지막 페이지</gray>"
+      previous:
+        available: "<white>이전 <aqua>[current]</aqua>/<aqua>[max]</aqua></white>"
+        unavailable: "<gray>이전 <red>[current]</red>/<red>[max]</red></gray>"
+      next:
+        available: "<white>다음 <aqua>[current]</aqua>/<aqua>[max]</aqua></white>"
+        unavailable: "<gray>다음 <red>[current]</red>/<red>[max]</red></gray>"

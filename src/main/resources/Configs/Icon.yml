@@ -1,0 +1,17 @@
+mail:
+  reward: "minecraft:cyan_stained_glass"
+  unread: "minecraft:white_stained_glass"
+  read: "minecraft:gray_stained_glass"
+menu.pagination:
+  first:
+    available: minecraft:nether_star
+    unavailable: minecraft:red_wool
+  last:
+    available: minecraft:nether_star
+    unavailable: minecraft:red_wool
+  previous:
+    available: minecraft:nether_star
+    unavailable: minecraft:red_wool
+  next:
+    available: minecraft:nether_star
+    unavailable: minecraft:red_wool
