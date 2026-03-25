@@ -1,1 +1,1 @@
-rootProject.name = "VanishArmor"
+rootProject.name = "CraftMail"

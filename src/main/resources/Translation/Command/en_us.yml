@@ -1,2 +1,9 @@
 mail:
   name: "mail"
+  description: "Mail system command."
+  usage: "/mail"
+  commands:
+    send:
+      name: "send"
+      description: "Sends mail to a player."
+      usage: "/mail send <player> <title> [content]"

@@ -1,5 +1,6 @@
 package kr.rtustudio.craftmail;
 
+import kr.rtustudio.bridge.BridgeChannel;
 import kr.rtustudio.configurate.model.ConfigPath;
 import kr.rtustudio.craftmail.bridge.MailBridge;
 import kr.rtustudio.craftmail.command.MainCommand;
@@ -19,6 +20,8 @@ public class CraftMail extends RSPlugin {
     @Getter
     private static CraftMail instance;
     @Getter
+    private BridgeChannel channel;
+    @Getter
     private MailManager mailManager;
     @Getter
     private TriggerRegistry triggerRegistry;
@@ -32,20 +35,19 @@ public class CraftMail extends RSPlugin {
 
     @Override
     protected void enable() {
+        channel = BridgeChannel.of("craftmail", "notify");
+
         triggerRegistry = new TriggerRegistry();
         triggerRegistry.register(new ItemTrigger(List.of()));
         triggerRegistry.register(new ExperienceTrigger(0));
 
         registerStorage("Mail");
-
         registerConfiguration(MenuConfig.class, ConfigPath.of("Menu"));
 
         mailManager = new MailManager(this);
-
         mailBridge = new MailBridge(this);
 
         registerEvent(new PlayerJoinQuit(this));
-
         registerCommand(new MainCommand(this), true);
     }
 

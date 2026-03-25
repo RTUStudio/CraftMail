@@ -1,8 +1,5 @@
 package kr.rtustudio.craftmail.configuration;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-
 import kr.rtustudio.configurate.model.ConfigurationPart;
 import kr.rtustudio.configurate.objectmapping.ConfigSerializable;
 import kr.rtustudio.configurate.objectmapping.meta.PostProcess;
@@ -12,19 +9,23 @@ import org.bukkit.event.inventory.ClickType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 @Slf4j(topic = "CraftMail")
 @Getter
-@SuppressWarnings({"unused", "CanBeFinal", "FieldCanBeLocal", "FieldMayBeFinal", "InnerClassMayBeStatic"})
+@SuppressWarnings({
+        "unused",
+        "CanBeFinal",
+        "FieldCanBeLocal",
+        "FieldMayBeFinal",
+        "InnerClassMayBeStatic"
+})
 public class MenuConfig extends ConfigurationPart {
 
     private int line = 6;
 
-    private MailIcon mail;
+    private MailIcon mail = new MailIcon();
 
     private List<Icon> icons = List.of(
             new Icon(Icon.State.FIRST_PAGE_AVAILABLE, 45, "minecraft:nether_star"),
@@ -45,16 +46,16 @@ public class MenuConfig extends ConfigurationPart {
             new Action(Action.State.LAST_PAGE, 53, List.of(ClickType.LEFT))
     );
 
-    private transient Set<Integer> disabledSlots = new ObjectOpenHashSet<>();
+    private transient Set<Integer> disabledSlots = new HashSet<>();
 
     @PostProcess
     public void check() {
         disabledSlots.clear();
-        Map<Integer, Map<ClickType, Action.State>> slotClickMap = new Object2ObjectOpenHashMap<>();
+        Map<Integer, Map<ClickType, Action.State>> slotClickMap = new HashMap<>();
 
         for (Action action : actions) {
             int slot = action.slot();
-            Map<ClickType, Action.State> clickMap = slotClickMap.computeIfAbsent(slot, k -> new Object2ObjectOpenHashMap<>());
+            Map<ClickType, Action.State> clickMap = slotClickMap.computeIfAbsent(slot, k -> new HashMap<>());
 
             for (ClickType click : action.clickTypes()) {
                 if (clickMap.containsKey(click)) {
@@ -77,25 +78,6 @@ public class MenuConfig extends ConfigurationPart {
             }
         }
         return null;
-    }
-
-    @ConfigSerializable
-    public class MailIcon {
-        private String reward = "minecraft:cyan_stained_glass";
-        private String unread = "minecraft:white_stained_glass";
-        private String read = "minecraft:gray_stained_glass";
-
-        public String get(Type type) {
-            return switch (type) {
-                case REWARD -> reward;
-                case UNREAD -> unread;
-                case READ -> read;
-            };
-        }
-
-        public enum Type {
-            REWARD, UNREAD, READ
-        }
     }
 
     @ConfigSerializable
@@ -128,6 +110,24 @@ public class MenuConfig extends ConfigurationPart {
             public String getKey() {
                 return name().toLowerCase().replace('_', '-');
             }
+        }
+    }
+
+    public class MailIcon extends ConfigurationPart {
+        private String reward = "minecraft:cyan_stained_glass";
+        private String unread = "minecraft:white_stained_glass";
+        private String read = "minecraft:gray_stained_glass";
+
+        public String get(Type type) {
+            return switch (type) {
+                case REWARD -> reward;
+                case UNREAD -> unread;
+                case READ -> read;
+            };
+        }
+
+        public enum Type {
+            REWARD, UNREAD, READ
         }
     }
 }

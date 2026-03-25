@@ -10,12 +10,9 @@ import kr.rtustudio.framework.bukkit.api.format.ComponentFormatter;
 import kr.rtustudio.framework.bukkit.api.inventory.RSInventory;
 import kr.rtustudio.framework.bukkit.api.registry.CustomItems;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
-
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -27,8 +24,6 @@ import org.bukkit.persistence.PersistentDataType;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.BiPredicate;
 
 public class MailInventory extends RSInventory<CraftMail> {
 
@@ -181,7 +176,7 @@ public class MailInventory extends RSInventory<CraftMail> {
             }
         } else {
             if (!manager.claimTriggers(player, mail)) {
-                notifier.announce(message.get(player, "inventory-full"));
+                notifier.announce(player, message.get(player, "inventory-full"));
             }
         }
         loadPage(Math.min(page, maxPage));
@@ -190,10 +185,18 @@ public class MailInventory extends RSInventory<CraftMail> {
 
     private void handleAction(Action.State state) {
         switch (state) {
-            case FIRST_PAGE -> { if (page > 0) loadPage(0); }
-            case PREVIOUS_PAGE -> { if (page > 0) loadPage(page - 1); }
-            case NEXT_PAGE -> { if (page < maxPage) loadPage(page + 1); }
-            case LAST_PAGE -> { if (page < maxPage) loadPage(maxPage); }
+            case FIRST_PAGE -> {
+                if (page > 0) loadPage(0);
+            }
+            case PREVIOUS_PAGE -> {
+                if (page > 0) loadPage(page - 1);
+            }
+            case NEXT_PAGE -> {
+                if (page < maxPage) loadPage(page + 1);
+            }
+            case LAST_PAGE -> {
+                if (page < maxPage) loadPage(maxPage);
+            }
             case READ_ALL -> manager.readAll(player.getUniqueId());
         }
     }

@@ -1,15 +1,15 @@
 package kr.rtustudio.craftmail.manager;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import kr.rtustudio.craftmail.CraftMail;
 import kr.rtustudio.craftmail.bridge.MailBridge;
 import kr.rtustudio.craftmail.data.Mail;
 import kr.rtustudio.craftmail.event.MailReceiveEvent;
 import kr.rtustudio.craftmail.event.MailSendEvent;
 import kr.rtustudio.craftmail.trigger.Trigger;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import kr.rtustudio.framework.bukkit.api.configuration.internal.translation.message.MessageTranslation;
 import kr.rtustudio.framework.bukkit.api.player.Notifier;
 import kr.rtustudio.storage.JSON;

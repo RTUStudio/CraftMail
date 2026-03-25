@@ -23,10 +23,6 @@ public class Mail {
     private List<Trigger> triggers;
     private boolean read;
 
-    public void read() {
-        this.read = true;
-    }
-
     public Mail(UUID sender, UUID receiver, String title, String content, List<Trigger> triggers) {
         this(UUID.randomUUID(), sender, receiver, title, content, new Date(), triggers, false);
     }
@@ -41,5 +37,9 @@ public class Mail {
 
     public Mail(UUID receiver, String title, String content) {
         this(UUID.randomUUID(), null, receiver, title, content, new Date(), new ArrayList<>(), false);
+    }
+
+    public void read() {
+        this.read = true;
     }
 }
