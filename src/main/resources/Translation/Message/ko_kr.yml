@@ -1,0 +1,31 @@
+title: "<gold>메일함</gold>"
+unread: "<white>읽지 않은 메일이 있습니다</white>"
+unread-notify: "<gold>읽지 않은 우편이 <white>{count}통</white> 있습니다</gold>"
+mail-arrived: "<gold>새 우편이 도착했습니다</gold>"
+inventory-full: "<red>인벤토리 공간이 부족합니다</red>"
+reward:
+  remain: "<white>보상을 전부 수령하지 못했습니다</white>"
+  complete: "<white>보상을 모두 받았습니다</white>"
+send:
+  success: "<green>{player}에게 우편 <white>{title}</white>을(를) 보냈습니다</green>"
+  not-found: "<red>플레이어 <white>{player}</white>을(를) 찾을 수 없습니다</red>"
+icon:
+  mail:
+    reward: "보상 받기"
+    read: "읽기"
+    remove: "제거"
+    click: "클릭: "
+menu:
+  pagination:
+    first:
+      available: "<green>첫 페이지</green>"
+      unavailable: "<gray>첫 페이지</gray>"
+    last:
+      available: "<green>마지막 페이지</green>"
+      unavailable: "<gray>마지막 페이지</gray>"
+    previous:
+      available: "<yellow>이전 페이지</yellow> <white>{current}<gray>/<white>{max}</white>"
+      unavailable: "<gray>이전 페이지 <red>{current}<gray>/<red>{max}</gray>"
+    next:
+      available: "<yellow>다음 페이지</yellow> <white>{current}<gray>/<white>{max}</white>"
+      unavailable: "<gray>다음 페이지 <red>{current}<gray>/<red>{max}</gray>"

@@ -1,0 +1,9 @@
+mail:
+  name: "우편"
+  description: "우편함 명령어입니다."
+  usage: "/우편"
+  commands:
+    send:
+      name: "보내기"
+      description: "플레이어에게 우편을 보냅니다."
+      usage: "/우편 보내기 <플레이어> <제목> [내용]"
