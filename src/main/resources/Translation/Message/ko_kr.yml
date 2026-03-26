@@ -16,16 +16,61 @@ icon:
     remove: "제거"
     click: "클릭: "
 menu:
-  pagination:
-    first:
-      available: "<green>첫 페이지</green>"
-      unavailable: "<gray>첫 페이지</gray>"
-    last:
-      available: "<green>마지막 페이지</green>"
-      unavailable: "<gray>마지막 페이지</gray>"
-    previous:
-      available: "<yellow>이전 페이지</yellow> <white>{current}<gray>/<white>{max}</white>"
-      unavailable: "<gray>이전 페이지 <red>{current}<gray>/<red>{max}</gray>"
-    next:
-      available: "<yellow>다음 페이지</yellow> <white>{current}<gray>/<white>{max}</white>"
-      unavailable: "<gray>다음 페이지 <red>{current}<gray>/<red>{max}</gray>"
+  mail:
+    placeholder:
+      FIRST_PAGE_AVAILABLE:
+        title: "<green>첫 페이지</green>"
+        description:
+          - ""
+          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <yellow>클릭하여 첫 페이지로 이동"
+      FIRST_PAGE_UNAVAILABLE:
+        title: "<gray>첫 페이지</gray>"
+        description:
+          - ""
+          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <red>이미 첫 페이지입니다"
+      PREVIOUS_PAGE_AVAILABLE:
+        title: "<yellow>이전 페이지</yellow>"
+        description:
+          - ""
+          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <yellow>클릭하여 이전 페이지로 이동"
+      PREVIOUS_PAGE_UNAVAILABLE:
+        title: "<gray>이전 페이지</gray>"
+        description:
+          - ""
+          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <red>이전 페이지가 없습니다"
+      NEXT_PAGE_AVAILABLE:
+        title: "<yellow>다음 페이지</yellow>"
+        description:
+          - ""
+          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <yellow>클릭하여 다음 페이지로 이동"
+      NEXT_PAGE_UNAVAILABLE:
+        title: "<gray>다음 페이지</gray>"
+        description:
+          - ""
+          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <red>다음 페이지가 없습니다"
+      LAST_PAGE_AVAILABLE:
+        title: "<green>마지막 페이지</green>"
+        description:
+          - ""
+          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <yellow>클릭하여 마지막 페이지로 이동"
+      LAST_PAGE_UNAVAILABLE:
+        title: "<gray>마지막 페이지</gray>"
+        description:
+          - ""
+          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <red>이미 마지막 페이지입니다"

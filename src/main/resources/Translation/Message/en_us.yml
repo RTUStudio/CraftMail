@@ -16,16 +16,61 @@ icon:
     remove: "Remove"
     click: "Click: "
 menu:
-  pagination:
-    first:
-      available: "<green>First Page</green>"
-      unavailable: "<gray>First Page</gray>"
-    last:
-      available: "<green>Last Page</green>"
-      unavailable: "<gray>Last Page</gray>"
-    previous:
-      available: "<yellow>Previous Page</yellow> <white>{current}<gray>/<white>{max}</white>"
-      unavailable: "<gray>Previous Page <red>{current}<gray>/<red>{max}</gray>"
-    next:
-      available: "<yellow>Next Page</yellow> <white>{current}<gray>/<white>{max}</white>"
-      unavailable: "<gray>Next Page <red>{current}<gray>/<red>{max}</gray>"
+  mail:
+    placeholder:
+      FIRST_PAGE_AVAILABLE:
+        title: "<green>First Page</green>"
+        description:
+          - ""
+          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <yellow>Click to go to first page"
+      FIRST_PAGE_UNAVAILABLE:
+        title: "<gray>First Page</gray>"
+        description:
+          - ""
+          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <red>Already on the first page"
+      PREVIOUS_PAGE_AVAILABLE:
+        title: "<yellow>Previous Page</yellow>"
+        description:
+          - ""
+          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <yellow>Click to go to previous page"
+      PREVIOUS_PAGE_UNAVAILABLE:
+        title: "<gray>Previous Page</gray>"
+        description:
+          - ""
+          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <red>No previous page"
+      NEXT_PAGE_AVAILABLE:
+        title: "<yellow>Next Page</yellow>"
+        description:
+          - ""
+          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <yellow>Click to go to next page"
+      NEXT_PAGE_UNAVAILABLE:
+        title: "<gray>Next Page</gray>"
+        description:
+          - ""
+          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <red>No next page"
+      LAST_PAGE_AVAILABLE:
+        title: "<green>Last Page</green>"
+        description:
+          - ""
+          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <yellow>Click to go to last page"
+      LAST_PAGE_UNAVAILABLE:
+        title: "<gray>Last Page</gray>"
+        description:
+          - ""
+          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - ""
+          - " <red>Already on the last page"

@@ -93,11 +93,23 @@ public class MailInventory extends RSInventory<CraftMail> {
 
             ItemMeta meta = item.getItemMeta();
             if (meta != null) {
-                String stateKey = icon.state().getKey();
-                String display = message.get(player, "menu.pagination." + stateKey)
+                String baseKey = "menu.mail.placeholder." + icon.state().getKey().toUpperCase().replace("-", "_");
+                String display = message.get(player, baseKey + ".title")
                         .replace("{current}", String.valueOf(page + 1))
                         .replace("{max}", String.valueOf(maxPage + 1));
                 meta.displayName(ComponentFormatter.mini("<!italic>" + display));
+
+                List<String> descList = message.getList(player, baseKey + ".description");
+                if (descList != null && !descList.isEmpty()) {
+                    List<Component> lore = new java.util.ArrayList<>();
+                    for (String line : descList) {
+                        String replaced = line
+                                .replace("{current}", String.valueOf(page + 1))
+                                .replace("{max}", String.valueOf(maxPage + 1));
+                        lore.add(ComponentFormatter.mini("<!italic>" + replaced));
+                    }
+                    meta.lore(lore);
+                }
                 item.setItemMeta(meta);
             }
             inventory.setItem(icon.slot(), item);
