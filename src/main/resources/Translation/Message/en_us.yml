@@ -1,76 +1,84 @@
-title: "<gold>Mail</gold>"
-unread: "<white>You have unread mails</white>"
-unread-notify: "<gold>You have <white>{count}</white> unread mail(s)</gold>"
-mail-arrived: "<gold>New mail has arrived</gold>"
-inventory-full: "<red>Not enough inventory space</red>"
+notify:
+  arrived: "<gold>New mail has arrived</gold>"
+  unread: "<gold>You have <white>{count}</white> unread mail(s)</gold>"
+gui:
+  title: "<gold>Mail</gold>"
+  full: "<red>Not enough inventory space</red>"
+action:
+  reward: "Get Reward"
+  read: "Read"
+  remove: "Remove"
+  unread: "Read"
 reward:
-  remain: "<white>Some rewards could not be claimed</white>"
-  complete: "<white>All rewards have been claimed</white>"
+  remain: "<red>Some rewards could not be claimed</red>"
+  complete: "<green>All rewards have been claimed</green>"
 send:
   success: "<green>Sent mail <white>{title}</white> to {player}</green>"
   not-found: "<red>Player <white>{player}</white> was not found</red>"
-icon:
+format:
   mail:
-    reward: "Get Reward"
-    read: "Read"
-    remove: "Remove"
-    click: "Click: "
+    - "<!italic><white>Title: {title}</white>"
+    - "<!italic><white>{content}</white>"
+    - ""
+    - "<!italic><white>Click: {action}</white>"
+    - ""
+    - "<!italic><gray>{time}</gray>"
 menu:
   mail:
     placeholder:
       FIRST_PAGE_AVAILABLE:
-        title: "<green>First Page</green>"
+        title: "<white><green>⏪</green> First Page</white>"
         description:
           - ""
-          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - " <gray>Current Page:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <yellow>Click to go to first page"
+          - " <green>✔ Click to go to the first page</green>"
       FIRST_PAGE_UNAVAILABLE:
-        title: "<gray>First Page</gray>"
+        title: "<gray><red>⏪</red> First Page</gray>"
         description:
           - ""
-          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - " <gray>Current Page:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <red>Already on the first page"
+          - " <red>✖ Already on the first page</red>"
       PREVIOUS_PAGE_AVAILABLE:
-        title: "<yellow>Previous Page</yellow>"
+        title: "<white><green>◀</green> Previous Page</white>"
         description:
           - ""
-          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - " <gray>Current Page:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <yellow>Click to go to previous page"
+          - " <green>✔ Click to go to the previous page</green>"
       PREVIOUS_PAGE_UNAVAILABLE:
-        title: "<gray>Previous Page</gray>"
+        title: "<gray><red>◀</red> Previous Page</gray>"
         description:
           - ""
-          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - " <gray>Current Page:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <red>No previous page"
+          - " <red>✖ No previous page available</red>"
       NEXT_PAGE_AVAILABLE:
-        title: "<yellow>Next Page</yellow>"
+        title: "<white>Next Page <green>▶</green></white>"
         description:
           - ""
-          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - " <gray>Current Page:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <yellow>Click to go to next page"
+          - " <green>✔ Click to go to the next page</green>"
       NEXT_PAGE_UNAVAILABLE:
-        title: "<gray>Next Page</gray>"
+        title: "<gray>Next Page <red>▶</red></gray>"
         description:
           - ""
-          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - " <gray>Current Page:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <red>No next page"
+          - " <red>✖ No next page available</red>"
       LAST_PAGE_AVAILABLE:
-        title: "<green>Last Page</green>"
+        title: "<white>Last Page <green>⏩</green></white>"
         description:
           - ""
-          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - " <gray>Current Page:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <yellow>Click to go to last page"
+          - " <green>✔ Click to go to the last page</green>"
       LAST_PAGE_UNAVAILABLE:
-        title: "<gray>Last Page</gray>"
+        title: "<gray>Last Page <red>⏩</red></gray>"
         description:
           - ""
-          - " <gray>Page: <white>{current}<gray>/<white>{max}"
+          - " <gray>Current Page:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <red>Already on the last page"
+          - " <red>✖ Already on the last page</red>"

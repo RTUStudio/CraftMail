@@ -28,7 +28,7 @@ import java.util.List;
 public class MailInventory extends RSInventory<CraftMail> {
 
     private final NamespacedKey key;
-    private final SimpleDateFormat format = new SimpleDateFormat("M월 d일 | a h시 m분");
+    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private final MenuConfig config;
 
     private final Player player;
@@ -48,7 +48,7 @@ public class MailInventory extends RSInventory<CraftMail> {
         this.config = plugin.getConfiguration(MenuConfig.class);
         this.manager = plugin.getMailManager();
         this.player = player;
-        Component title = ComponentFormatter.mini(message.get(player, "title"));
+        Component title = ComponentFormatter.mini(message.get(player, "gui.title"));
         int slots = config.getLine() * 9;
         this.inventory = createInventory(slots, title);
         loadMails();
@@ -137,29 +137,42 @@ public class MailInventory extends RSInventory<CraftMail> {
 
         ItemMeta meta = itemStack.getItemMeta();
         meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, mail.getUuid().toString());
-        meta.displayName(ComponentFormatter.mini("<!italic><white>" + mail.getTitle()));
-        List<Component> lore = new ArrayList<>(toComponents(mail.getContent()));
-        lore.add(Component.empty());
-
-        String iconKey;
+        String actionStr;
         if (mail.getTriggers().isEmpty()) {
-            iconKey = mail.isRead() ? "remove" : "unread";
-        } else iconKey = "reward";
+            actionStr = message.get(player, "action." + (mail.isRead() ? "remove" : "unread"));
+        } else {
+            actionStr = message.get(player, "action.reward");
+        }
 
-        lore.add(ComponentFormatter.mini("<!italic><white>" + message.get(player, "icon.mail.click") + message.get(player, "icon.mail." + iconKey)));
-        lore.add(Component.empty());
-        lore.add(ComponentFormatter.mini("<!italic><gray>" + format.format(mail.getDate())));
+        List<Component> lore = new ArrayList<>();
+        List<String> formatList = message.getList(player, "format.mail");
+        if (formatList != null && !formatList.isEmpty()) {
+            String titleStr = formatList.get(0)
+                    .replace("{title}", mail.getTitle())
+                    .replace("{action}", actionStr)
+                    .replace("{time}", format.format(mail.getDate()));
+            meta.displayName(ComponentFormatter.mini("<!italic>" + titleStr));
+
+            for (int i = 1; i < formatList.size(); i++) {
+                String line = formatList.get(i);
+                if (line.contains("{content}")) {
+                    for (String part : mail.getContent().split("\n")) {
+                        lore.add(ComponentFormatter.mini("<!italic>" + line.replace("{content}", part)));
+                    }
+                } else {
+                    lore.add(ComponentFormatter.mini("<!italic>" + line
+                            .replace("{title}", mail.getTitle())
+                            .replace("{action}", actionStr)
+                            .replace("{time}", format.format(mail.getDate()))));
+                }
+            }
+        }
         meta.lore(lore);
         itemStack.setItemMeta(meta);
         return itemStack;
     }
 
-    private List<Component> toComponents(String msg) {
-        List<Component> result = new ArrayList<>();
-        String[] split = msg.split("\n");
-        for (String str : split) result.add(ComponentFormatter.mini("<!italic><white>" + str));
-        return result;
-    }
+
 
     @Override
     public boolean onClick(Event<InventoryClickEvent> event, Click click) {
@@ -188,7 +201,7 @@ public class MailInventory extends RSInventory<CraftMail> {
             }
         } else {
             if (!manager.claimTriggers(player, mail)) {
-                notifier.announce(player, message.get(player, "inventory-full"));
+                notifier.announce(player, message.get(player, "gui.full"));
             }
         }
         loadPage(Math.min(page, maxPage));

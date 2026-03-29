@@ -4,6 +4,8 @@ import kr.rtustudio.craftmail.CraftMail;
 import kr.rtustudio.craftmail.data.Mail;
 import kr.rtustudio.framework.bukkit.api.command.CommandArgs;
 import kr.rtustudio.framework.bukkit.api.command.RSCommand;
+import kr.rtustudio.framework.bukkit.api.core.provider.ProviderRegistry;
+import kr.rtustudio.framework.bukkit.api.core.provider.name.NameProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
@@ -12,13 +14,16 @@ import java.util.List;
 
 public class SendCommand extends RSCommand<CraftMail> {
 
+    private final ProviderRegistry providerRegistry;
+
     public SendCommand(CraftMail plugin) {
         super(plugin, "send", PermissionDefault.OP);
+        this.providerRegistry = framework.getProviderRegistry();
     }
 
     @Override
     protected Result execute(CommandArgs data) {
-        if (!data.length(3)) return Result.WRONG_USAGE;
+        if (data.length() < 3) return Result.WRONG_USAGE;
         Player sender = player();
         if (sender == null) return Result.ONLY_PLAYER;
 
@@ -52,8 +57,9 @@ public class SendCommand extends RSCommand<CraftMail> {
     @Override
     protected List<String> tabComplete(CommandArgs data) {
         String[] args = data.args();
+        NameProvider provider = providerRegistry.get(NameProvider.class);
         return switch (args.length) {
-            case 2 -> null;
+            case 2 -> provider != null ? provider.names(NameProvider.Scope.GLOBAL) : List.of();
             case 3 -> List.of("<제목>");
             default -> List.of("<내용>");
         };

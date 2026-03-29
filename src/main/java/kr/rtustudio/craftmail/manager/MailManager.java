@@ -33,7 +33,6 @@ public class MailManager {
     private final Notifier notifier;
 
     private final Gson gson = new Gson();
-    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public MailManager(CraftMail plugin) {
         this.plugin = plugin;
@@ -60,7 +59,7 @@ public class MailManager {
                 .append("title", mail.getTitle())
                 .append("content", mail.getContent())
                 .append("trigger", triggerArray.toString())
-                .append("date", format.format(mail.getDate()))
+                .append("date", mail.getDate().getTime())
                 .append("read", mail.isRead());
         storage.add(json).join();
 
@@ -71,7 +70,7 @@ public class MailManager {
     private void notifyReceiver(Mail mail) {
         Player receiver = Bukkit.getPlayer(mail.getReceiver());
         if (receiver != null) {
-            notifier.announce(receiver, message.get(receiver, "mail-arrived"));
+            notifier.announce(receiver, message.get(receiver, "notify.arrived"));
             return;
         }
         MailBridge bridge = plugin.getMailBridge();
@@ -97,15 +96,18 @@ public class MailManager {
 
             List<Trigger> triggers = new ArrayList<>();
             String triggerStr = string(json, "trigger");
-            if (triggerStr != null) {
-                JsonElement triggerElement = gson.fromJson(triggerStr, JsonElement.class);
-                if (triggerElement instanceof JsonArray array) {
-                    for (JsonElement element : array) {
-                        JsonObject object = element.getAsJsonObject();
-                        Trigger trigger = gson.fromJson(object, Trigger.class);
-                        if (trigger != null) triggers.add(trigger);
+            if (triggerStr != null && !triggerStr.isEmpty()) {
+                try {
+                    JsonElement triggerElement = gson.fromJson(triggerStr, JsonElement.class);
+                    if (triggerElement instanceof JsonArray array) {
+                        for (JsonElement element : array) {
+                            if (element.isJsonObject()) {
+                                Trigger trigger = gson.fromJson(element.getAsJsonObject(), Trigger.class);
+                                if (trigger != null) triggers.add(trigger);
+                            }
+                        }
                     }
-                } else continue;
+                } catch (Exception ignored) {}
             }
             boolean read = bool(json, "read");
             Mail mail = new Mail(uuid, sender, receiver, title, content, date, triggers, read);
@@ -126,7 +128,7 @@ public class MailManager {
     }
 
     public void remove(UUID mail) {
-        storage.set(JSON.of("uuid", mail.toString()), null);
+        storage.set(JSON.of("uuid", mail.toString()), JSON.of());
     }
 
     // ==================== 트리거 수령 ====================
@@ -184,11 +186,15 @@ public class MailManager {
     }
 
     private Date date(JsonObject json, String key) {
-        String text = string(json, key);
+        JsonElement element = json.get(key);
+        if (element == null || element.isJsonNull()) return new Date();
         try {
-            return format.parse(text);
-        } catch (ParseException e) {
-            return null;
+            if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isNumber()) {
+                return new Date(element.getAsLong());
+            }
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(element.getAsString());
+        } catch (Exception e) {
+            return new Date();
         }
     }
 

@@ -2,6 +2,7 @@ package kr.rtustudio.craftmail.handler;
 
 import kr.rtustudio.craftmail.CraftMail;
 import kr.rtustudio.framework.bukkit.api.listener.RSListener;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -19,8 +20,10 @@ public class PlayerJoinQuit extends RSListener<CraftMail> {
         Player player = event.getPlayer();
         int unread = plugin.getMailManager().getUnreadCount(player.getUniqueId());
         if (unread > 0) {
-            notifier.announce(player, message.get(player, "unread-notify")
-                    .replace("{count}", String.valueOf(unread)));
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                notifier.announce(player, message.get(player, "notify.unread")
+                        .replace("{count}", String.valueOf(unread)));
+            }, 20 * 3);
         }
     }
 }

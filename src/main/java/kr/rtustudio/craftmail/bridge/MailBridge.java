@@ -24,7 +24,7 @@ public class MailBridge {
         proxium.subscribe(plugin.getChannel(), NotifyPacket.class, packet ->
                 CraftScheduler.sync(plugin, () -> {
                     Player player = Bukkit.getPlayer(packet.receiver());
-                    if (player != null) notifier.announce(player, message.get(player, "mail-arrived"));
+                    if (player != null) notifier.announce(player, message.get(player, "notify.arrived"));
                 })
         );
     }

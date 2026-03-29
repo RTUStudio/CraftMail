@@ -1,76 +1,84 @@
-title: "<gold>메일함</gold>"
-unread: "<white>읽지 않은 메일이 있습니다</white>"
-unread-notify: "<gold>읽지 않은 우편이 <white>{count}통</white> 있습니다</gold>"
-mail-arrived: "<gold>새 우편이 도착했습니다</gold>"
-inventory-full: "<red>인벤토리 공간이 부족합니다</red>"
+notify:
+  arrived: "<gold>새 우편이 도착했습니다</gold>"
+  unread: "<gold>읽지 않은 우편이 <white>{count}통</white> 있습니다</gold>"
+gui:
+  title: "<gold>메일함</gold>"
+  full: "<red>인벤토리 공간이 부족합니다</red>"
+action:
+  reward: "보상 받기"
+  read: "읽기"
+  remove: "제거"
+  unread: "읽기"
 reward:
-  remain: "<white>보상을 전부 수령하지 못했습니다</white>"
-  complete: "<white>보상을 모두 받았습니다</white>"
+  remain: "<red>보상을 전부 수령하지 못했습니다</red>"
+  complete: "<green>보상을 모두 받았습니다</green>"
 send:
   success: "<green>{player}에게 우편 <white>{title}</white>을(를) 보냈습니다</green>"
   not-found: "<red>플레이어 <white>{player}</white>을(를) 찾을 수 없습니다</red>"
-icon:
+format:
   mail:
-    reward: "보상 받기"
-    read: "읽기"
-    remove: "제거"
-    click: "클릭: "
+    - "<!italic><white>제목: {title}</white>"
+    - "<!italic><white>{content}</white>"
+    - ""
+    - "<!italic><white>클릭: {action}</white>"
+    - ""
+    - "<!italic><gray>{time}</gray>"
 menu:
   mail:
     placeholder:
       FIRST_PAGE_AVAILABLE:
-        title: "<green>첫 페이지</green>"
+        title: "<white><green>⏪</green> 첫 페이지</white>"
         description:
           - ""
-          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - " <gray>현재 페이지:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <yellow>클릭하여 첫 페이지로 이동"
+          - " <green>✔ 클릭하여 처음으로 이동합니다</green>"
       FIRST_PAGE_UNAVAILABLE:
-        title: "<gray>첫 페이지</gray>"
+        title: "<gray><red>⏪</red> 첫 페이지</gray>"
         description:
           - ""
-          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - " <gray>현재 페이지:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <red>이미 첫 페이지입니다"
+          - " <red>✖ 이미 첫 번째 페이지입니다</red>"
       PREVIOUS_PAGE_AVAILABLE:
-        title: "<yellow>이전 페이지</yellow>"
+        title: "<white><green>◀</green> 이전 페이지</white>"
         description:
           - ""
-          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - " <gray>현재 페이지:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <yellow>클릭하여 이전 페이지로 이동"
+          - " <green>✔ 클릭하여 이동합니다</green>"
       PREVIOUS_PAGE_UNAVAILABLE:
-        title: "<gray>이전 페이지</gray>"
+        title: "<gray><red>◀</red> 이전 페이지</gray>"
         description:
           - ""
-          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - " <gray>현재 페이지:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <red>이전 페이지가 없습니다"
+          - " <red>✖ 더 이상 이전 페이지가 없습니다</red>"
       NEXT_PAGE_AVAILABLE:
-        title: "<yellow>다음 페이지</yellow>"
+        title: "<white>다음 페이지 <green>▶</green></white>"
         description:
           - ""
-          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - " <gray>현재 페이지:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <yellow>클릭하여 다음 페이지로 이동"
+          - " <green>✔ 클릭하여 이동합니다</green>"
       NEXT_PAGE_UNAVAILABLE:
-        title: "<gray>다음 페이지</gray>"
+        title: "<gray>다음 페이지 <red>▶</red></gray>"
         description:
           - ""
-          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - " <gray>현재 페이지:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <red>다음 페이지가 없습니다"
+          - " <red>✖ 더 이상 다음 페이지가 없습니다</red>"
       LAST_PAGE_AVAILABLE:
-        title: "<green>마지막 페이지</green>"
+        title: "<white>마지막 페이지 <green>⏩</green></white>"
         description:
           - ""
-          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - " <gray>현재 페이지:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <yellow>클릭하여 마지막 페이지로 이동"
+          - " <green>✔ 클릭하여 끝으로 이동합니다</green>"
       LAST_PAGE_UNAVAILABLE:
-        title: "<gray>마지막 페이지</gray>"
+        title: "<gray>마지막 페이지 <red>⏩</red></gray>"
         description:
           - ""
-          - " <gray>페이지: <white>{current}<gray>/<white>{max}"
+          - " <gray>현재 페이지:</gray> <white>{current}</white> <dark_gray>/</dark_gray> <gray>{max}</gray>"
           - ""
-          - " <red>이미 마지막 페이지입니다"
+          - " <red>✖ 이미 마지막 페이지입니다</red>"
