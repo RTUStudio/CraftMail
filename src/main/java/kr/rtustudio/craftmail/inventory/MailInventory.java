@@ -101,7 +101,7 @@ public class MailInventory extends RSInventory<CraftMail> {
 
                 List<String> descList = message.getList(player, baseKey + ".description");
                 if (descList != null && !descList.isEmpty()) {
-                    List<Component> lore = new java.util.ArrayList<>();
+                    List<Component> lore = new ArrayList<>();
                     for (String line : descList) {
                         String replaced = line
                                 .replace("{current}", String.valueOf(page + 1))
@@ -173,7 +173,6 @@ public class MailInventory extends RSInventory<CraftMail> {
     }
 
 
-
     @Override
     public boolean onClick(Event<InventoryClickEvent> event, Click click) {
         if (event.isInventory()) return false;
@@ -228,7 +227,7 @@ public class MailInventory extends RSInventory<CraftMail> {
 
     @Override
     public boolean onDrag(Event<InventoryDragEvent> event, Drag drag) {
-        return true;
+        return false;
     }
 
     @Override

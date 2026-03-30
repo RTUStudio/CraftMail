@@ -9,6 +9,7 @@ import kr.rtustudio.craftmail.bridge.MailBridge;
 import kr.rtustudio.craftmail.data.Mail;
 import kr.rtustudio.craftmail.event.MailReceiveEvent;
 import kr.rtustudio.craftmail.event.MailSendEvent;
+import kr.rtustudio.craftmail.inventory.MailInventory;
 import kr.rtustudio.craftmail.trigger.Trigger;
 import kr.rtustudio.framework.bukkit.api.configuration.internal.translation.message.MessageTranslation;
 import kr.rtustudio.framework.bukkit.api.player.Notifier;
@@ -16,9 +17,9 @@ import kr.rtustudio.storage.JSON;
 import kr.rtustudio.storage.Storage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,6 +72,10 @@ public class MailManager {
         Player receiver = Bukkit.getPlayer(mail.getReceiver());
         if (receiver != null) {
             notifier.announce(receiver, message.get(receiver, "notify.arrived"));
+            Inventory top = receiver.getOpenInventory().getTopInventory();
+            if (top.getHolder() instanceof MailInventory mailInv) {
+                mailInv.refresh();
+            }
             return;
         }
         MailBridge bridge = plugin.getMailBridge();
@@ -107,7 +112,8 @@ public class MailManager {
                             }
                         }
                     }
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             }
             boolean read = bool(json, "read");
             Mail mail = new Mail(uuid, sender, receiver, title, content, date, triggers, read);

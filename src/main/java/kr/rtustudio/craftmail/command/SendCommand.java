@@ -9,8 +9,8 @@ import kr.rtustudio.framework.bukkit.api.core.provider.name.NameProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
-
 import java.util.List;
+import java.util.UUID;
 
 public class SendCommand extends RSCommand<CraftMail> {
 
@@ -29,8 +29,28 @@ public class SendCommand extends RSCommand<CraftMail> {
 
         String[] args = data.args();
         String targetName = args[1];
-        Player target = Bukkit.getPlayer(targetName);
-        if (target == null) {
+
+        NameProvider nameProvider = providerRegistry.get(NameProvider.class);
+        UUID targetId = null;
+        String resolvedName = targetName;
+
+        if (nameProvider != null) {
+            targetId = nameProvider.getUniqueId(targetName);
+            if (targetId != null) {
+                String actualName = nameProvider.getName(targetId);
+                if (actualName != null) resolvedName = actualName;
+            }
+        }
+
+        if (targetId == null) {
+            Player onlineTarget = Bukkit.getPlayer(targetName);
+            if (onlineTarget != null) {
+                targetId = onlineTarget.getUniqueId();
+                resolvedName = onlineTarget.getName();
+            }
+        }
+
+        if (targetId == null) {
             notifier.announce(sender, message.get(sender, "send.not-found")
                     .replace("{player}", targetName));
             return Result.FAILURE;
@@ -44,10 +64,10 @@ public class SendCommand extends RSCommand<CraftMail> {
         }
         String content = contentBuilder.toString();
 
-        Mail mail = new Mail(sender.getUniqueId(), target.getUniqueId(), title, content);
+        Mail mail = new Mail(sender.getUniqueId(), targetId, title, content);
         if (plugin.getMailManager().add(mail)) {
             notifier.announce(sender, message.get(sender, "send.success")
-                    .replace("{player}", target.getName())
+                    .replace("{player}", resolvedName)
                     .replace("{title}", title));
             return Result.SUCCESS;
         }
